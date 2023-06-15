@@ -10,12 +10,14 @@ var Gano = false;
 const Appkr = () => {
   const [user, setUser] = useState({});
   const [cards, setCards] = useState({});
+  const [card, setCard] = useState({});
 
   const getCard = async () => {
     const url = `https://deckofcardsapi.com/api/deck/${user.game}/draw/?count=1`;
     const response = await fetch(url);
     const data = await response.json();
     console.log(data.cards[0])
+    setCard(data.cards[0])
     Card = data.cards[0];
     validar();
   };
@@ -48,7 +50,8 @@ const Appkr = () => {
       <Button variant="contained" onClick={getCard}>
         Carta
       </Button>
-      {Gano?<Ganokr imagen={Card.image}></Ganokr>:null}
+      <Imagenkr imagen={card.image}></Imagenkr>
+      {Gano?<p>Gano</p>:null}
     </div>
   )
 }
