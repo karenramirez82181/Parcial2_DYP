@@ -1,9 +1,15 @@
-import { useState } from 'react'
-function App() {
-  const [count, setCount] = useState(0)
 
+import Appkr from './components/appkr';
+
+
+function App() {
+  
   return (
-    <div></div>
+    <div>
+      <Appkr 
+      ></Appkr>
+    </div>
+    
   )
 }
 
