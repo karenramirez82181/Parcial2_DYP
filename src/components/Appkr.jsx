@@ -3,8 +3,10 @@ import Formulariokr from './formulariokr'
 import { useState } from 'react'
 import Imagenkr from './Imagenkr'
 import Button from "@mui/material/Button";
+import Ganokr from './Ganokr';
 
 var Card = {};
+var Gano = false;
 const Appkr = () => {
   const [user, setUser] = useState({});
   const [cards, setCards] = useState({});
@@ -14,21 +16,27 @@ const Appkr = () => {
     const response = await fetch(url);
     const data = await response.json();
     console.log(data.cards[0])
-    if(data.cards[0].value===cards.value)
+    Card = data.cards[0];
+    validar();
+  };
+  const validar = ()=>{
+    if(Card.value===cards.value)
     {
-      Card = data.cards[0];
       console.log(Card.value)
-      if(Card.suit==='CLUBS' && cards.suit==='DIAMONDS')
+      console.log(Card.suit)
+      console.log(cards.suit)
+      if(Card.suit==='CLUBS' && cards.suit==='DIAMONDS' || Card.suit==='DIAMONDS' && cards.suit==='CLUBS')
       {
         console.log('GANO')
+        Gano = true
       }
-      else if(Card.suit==='HEARTS' && cards.suit==='SPADES')
+      else if(Card.suit==='HEARTS' && cards.suit==='SPADES' || Card.suit==='SPADES' && cards.suit==='HEARTS')
       {
         console.log('GANO')
+        Gano = true
       }
     }
-    
-  };
+  }
   return (
     <div>
       <Formulariokr 
@@ -40,6 +48,7 @@ const Appkr = () => {
       <Button variant="contained" onClick={getCard}>
         Carta
       </Button>
+      {Gano?<Ganokr imagen={Card.image}></Ganokr>:null}
     </div>
   )
 }
